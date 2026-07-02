@@ -2,7 +2,8 @@
 //!
 //! 负责订单的接收、风控检查、路由到撮合引擎以及撤单处理
 
-use crate::core::{Order, QAOrder, QAOrderExt};
+use crate::compat::account_ext::qaorder_to_qifi;
+use crate::core::{Order, QAOrder};
 use crate::exchange::{AccountManager, InstrumentRegistry, TradeGateway};
 use crate::market::MarketDataBroadcaster;
 use crate::matching::engine::{ExchangeMatchingEngine, InstrumentAsset};
@@ -701,7 +702,7 @@ impl OrderRouter {
         let time_cond = req.time_condition.unwrap_or(TimeCondition::GFD);
         let volume_cond = req.volume_condition.unwrap_or(VolumeCondition::ANY);
         let route_info = OrderRouteInfo {
-            order: order.clone(),
+            order: qaorder_to_qifi(&order),
             status: OrderStatus::PendingRoute,
             submit_time: timestamp,
             update_time: timestamp,
@@ -733,7 +734,7 @@ impl OrderRouter {
         );
 
         // 7. 路由到撮合引擎
-        match self.route_to_matching_engine(&req.instrument_id, order, order_id.clone()) {
+        match self.route_to_matching_engine(&req.instrument_id, qaorder_to_qifi(&order), order_id.clone()) {
             Ok(_) => {
                 log::info!("Order submitted successfully: {}", order_id);
 

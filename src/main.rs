@@ -658,6 +658,8 @@ impl ExchangeServer {
             server_start_time: chrono::Utc::now(),
             // WebSocket 连接计数器 @yutiansut @quantaxis
             ws_connection_count: std::sync::Arc::new(std::sync::atomic::AtomicUsize::new(0)),
+            // SnapshotManager（由 WebSocketServer 设置；主 HTTP 服务默认不持有）
+            snapshot_mgr: None,
         });
 
         // 创建市场数据服务（解耦：业务逻辑与网络层分离）

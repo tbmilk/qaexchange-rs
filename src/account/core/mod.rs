@@ -6,6 +6,7 @@
 //! 3. 分片账户 - 多线程处理不同账户，提高并发
 //! 4. WAL 日志 - 写入日志后才确认，保证数据安全
 
+use crate::compat::AccountQars2Ext;
 use crate::core::QA_Account;
 use crate::protocol::ipc_messages::{OrderAccepted, TradeReport};
 use crossbeam::channel::{Receiver, Sender};

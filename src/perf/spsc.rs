@@ -14,7 +14,7 @@
 //! - 行情接收 -> 行情分发
 //! - 订单网关 -> 撮合引擎
 
-use crossbeam_queue::ArrayQueue;
+use crossbeam::queue::ArrayQueue;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant};

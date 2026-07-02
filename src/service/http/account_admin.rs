@@ -15,33 +15,37 @@ use crate::protocol::diff::snapshot::SnapshotManager;
 
 // ==================== 内存存储（生产环境应使用数据库） ====================
 
-lazy_static::lazy_static! {
-    // 账户密码存储 (account_id -> (trading_password, fund_password))
-    static ref ACCOUNT_PASSWORDS: DashMap<String, (String, String)> = DashMap::new();
+// 账户密码存储 (account_id -> (trading_password, fund_password))
+static ACCOUNT_PASSWORDS: std::sync::LazyLock<DashMap<String, (String, String)>> =
+    std::sync::LazyLock::new(DashMap::new);
 
-    // 手续费率存储 (product_id -> CommissionRate)
-    static ref COMMISSION_RATES: DashMap<String, CommissionRate> = {
+// 手续费率存储 (product_id -> CommissionRate)
+static COMMISSION_RATES: std::sync::LazyLock<DashMap<String, CommissionRate>> =
+    std::sync::LazyLock::new(|| {
         let map = DashMap::new();
         init_default_commission_rates(&map);
         map
-    };
+    });
 
-    // 保证金率存储 (product_id -> MarginRate)
-    static ref MARGIN_RATES: DashMap<String, MarginRate> = {
+// 保证金率存储 (product_id -> MarginRate)
+static MARGIN_RATES: std::sync::LazyLock<DashMap<String, MarginRate>> =
+    std::sync::LazyLock::new(|| {
         let map = DashMap::new();
         init_default_margin_rates(&map);
         map
-    };
+    });
 
-    // 账户状态存储 (account_id -> AccountStatusInfo)
-    static ref ACCOUNT_STATUS: DashMap<String, AccountStatusInfo> = DashMap::new();
+// 账户状态存储 (account_id -> AccountStatusInfo)
+static ACCOUNT_STATUS: std::sync::LazyLock<DashMap<String, AccountStatusInfo>> =
+    std::sync::LazyLock::new(DashMap::new);
 
-    // 审计日志存储
-    static ref AUDIT_LOGS: DashMap<String, AuditLogEntry> = DashMap::new();
+// 审计日志存储
+static AUDIT_LOGS: std::sync::LazyLock<DashMap<String, AuditLogEntry>> =
+    std::sync::LazyLock::new(DashMap::new);
 
-    // 系统公告存储
-    static ref ANNOUNCEMENTS: DashMap<String, Announcement> = DashMap::new();
-}
+// 系统公告存储
+static ANNOUNCEMENTS: std::sync::LazyLock<DashMap<String, Announcement>> =
+    std::sync::LazyLock::new(DashMap::new);
 
 // ==================== 全局 SnapshotManager（用于广播公告）====================
 // @yutiansut @quantaxis

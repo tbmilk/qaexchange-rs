@@ -1,5 +1,6 @@
 //! WebSocket 消息处理器
 
+use crate::compat::AccountQars2Ext;
 use actix::Addr;
 use crossbeam::channel::{unbounded, Receiver, Sender};
 use log;

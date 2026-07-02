@@ -314,10 +314,8 @@ pub struct ConditionalOrderStatistics {
 }
 
 // 全局条件单引擎
-lazy_static::lazy_static! {
-    pub static ref CONDITIONAL_ORDER_ENGINE: parking_lot::RwLock<ConditionalOrderEngine> =
-        parking_lot::RwLock::new(ConditionalOrderEngine::new());
-}
+pub static CONDITIONAL_ORDER_ENGINE: std::sync::LazyLock<parking_lot::RwLock<ConditionalOrderEngine>> =
+    std::sync::LazyLock::new(|| parking_lot::RwLock::new(ConditionalOrderEngine::new()));
 
 #[cfg(test)]
 mod tests {

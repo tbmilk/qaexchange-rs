@@ -2,6 +2,7 @@
 //!
 //! 负责管理账户资金的出入金、流水记录等功能
 
+use crate::compat::AccountQars2Ext;
 use crate::exchange::AccountManager;
 use crate::ExchangeError;
 use dashmap::DashMap;

@@ -6,6 +6,7 @@
 //! - 执行银期转账（入金/出金）
 //! - 查询转账记录
 
+use crate::compat::AccountQars2Ext;
 use actix_web::{web, HttpResponse, Result};
 use chrono::Utc;
 use dashmap::DashMap;
@@ -148,9 +149,8 @@ impl Default for TransferStore {
 }
 
 // 全局转账存储
-lazy_static::lazy_static! {
-    pub static ref TRANSFER_STORE: TransferStore = TransferStore::new();
-}
+pub static TRANSFER_STORE: std::sync::LazyLock<TransferStore> =
+    std::sync::LazyLock::new(TransferStore::new);
 
 /// 获取签约银行列表
 /// GET /api/account/{account_id}/banks

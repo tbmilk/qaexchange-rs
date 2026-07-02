@@ -85,6 +85,9 @@ pub use uuid;
 /// 核心模块 - 复用 qars 账户/订单/持仓系统
 pub mod core;
 
+/// qars2 兼容层（Phase A：切换到 qars3 谱系后补齐 qars2 专有 API）
+pub mod compat;
+
 /// 撮合引擎 - 复用 qars 撮合引擎并扩展
 pub mod matching;
 
@@ -146,24 +149,24 @@ pub mod observability;
 // 重导出常用类型
 // ============================================================================
 
-// 从 qars 重导出核心类型
+// 从 qars 重导出核心类型（qars3 谱系：QAOrderExt 已并入 compat，QA_Position 原名 QA_Postions）
 pub use qars::qaaccount::account::QA_Account;
-pub use qars::qaaccount::order::{QAOrder, QAOrderExt};
-pub use qars::qaaccount::position::QA_Position;
+pub use qars::qaaccount::order::QAOrder;
+pub use qars::qaaccount::position::QA_Postions as QA_Position;
 
 // 从 qars 重导出协议类型
 pub use qars::qaprotocol::mifi;
 pub use qars::qaprotocol::qifi::account::{Account, Order, Position, Trade, QIFI};
 pub use qars::qaprotocol::tifi::{ReqCancel, ReqLogin, ReqOrder};
 
-// 从 qars 重导出撮合引擎
+// 重导出撮合引擎（Phase D3 去重，直接来自 qars/qapro-rs matchengine）
 pub use qars::qamarket::matchengine::{
     domain::{OrderDirection, OrderType},
     orderbook::{Failed, Orderbook, Success, TradingState},
 };
 
-// 从 qars 重导出数据广播
-pub use qars::qadata::broadcast_hub::{BroadcastConfig, DataBroadcaster, MarketDataType};
+// 重导出数据广播（qars2 特有，compat 最小实现）
+pub use crate::compat::broadcast_hub::{BroadcastConfig, DataBroadcaster, MarketDataType};
 
 // ============================================================================
 // 全局错误类型

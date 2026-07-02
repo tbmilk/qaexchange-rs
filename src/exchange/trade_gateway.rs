@@ -2,6 +2,7 @@
 //!
 //! 负责处理撮合引擎的成交结果，更新账户，并推送成交回报到客户端
 
+use crate::compat::AccountQars2Ext;
 use crate::core::{Order, QA_Account, Trade};
 use crate::exchange::{
     AccountManager, ExchangeIdGenerator, ExchangeOrderRecord, ExchangeTradeRecord,

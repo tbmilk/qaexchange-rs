@@ -3,6 +3,7 @@
 //! 提供账户列表查询、出入金、资金流水、风险监控、全市场订单/成交查询等管理功能
 //! @yutiansut @quantaxis
 
+use crate::compat::AccountQars2Ext;
 use actix_web::{web, HttpResponse, Result};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;

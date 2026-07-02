@@ -1,5 +1,6 @@
 //! HTTP API 请求处理器
 
+use crate::compat::AccountQars2Ext;
 use actix_web::{web, HttpResponse, Result};
 use chrono::{DateTime, Utc};
 use log;

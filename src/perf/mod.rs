@@ -223,12 +223,11 @@ impl Default for PerfContext {
 // 全局性能上下文（可选）
 // ═══════════════════════════════════════════════════════════════════════════
 
-use once_cell::sync::Lazy;
 use parking_lot::RwLock;
 
 /// 全局性能上下文
-static GLOBAL_PERF_CONTEXT: Lazy<RwLock<Option<Arc<PerfContext>>>> =
-    Lazy::new(|| RwLock::new(None));
+static GLOBAL_PERF_CONTEXT: std::sync::LazyLock<RwLock<Option<Arc<PerfContext>>>> =
+    std::sync::LazyLock::new(|| RwLock::new(None));
 
 /// 初始化全局性能上下文
 pub fn init_global_perf_context(config: PerfConfig) {

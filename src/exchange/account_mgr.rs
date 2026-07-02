@@ -708,8 +708,8 @@ impl AccountManager {
                 account.init_h(&instrument_id);
             }
 
-            if let Some(pos) = account.hold.get(&instrument_id) {
-                // 计算 coeff: 根据买卖方向使用不同的保证金系数
+            if let Some(pos) = account.hold.get_mut(&instrument_id) {
+                // 计算 coeff: 根据买卖方向使用不同的保证金系数（qars3 中 calc_* 需 &mut）
                 let coeff = if direction == "BUY" {
                     pos.preset.calc_coeff() * price
                 } else {

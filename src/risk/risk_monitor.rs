@@ -9,6 +9,7 @@
 //! - **风险预警**: 达到阈值时自动告警
 //! - **自动强平触发**: 风险超限时自动触发强平流程
 
+use crate::compat::AccountQars2Ext;
 use crate::exchange::AccountManager;
 use crate::ExchangeError;
 use chrono::Local;

@@ -8,6 +8,7 @@
 //! - 统计分析：基于账户真实数据计算
 //! - 数据导出：支持 CSV/JSON 格式
 
+use crate::compat::AccountQars2Ext;
 use actix_web::{web, HttpResponse};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;

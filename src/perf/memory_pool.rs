@@ -14,7 +14,7 @@
 //! - `TradeReportPool`: 成交回报对象池
 //! - `GenericPool<T>`: 通用对象池
 
-use crossbeam_queue::ArrayQueue;
+use crossbeam::queue::ArrayQueue;
 use parking_lot::Mutex;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
